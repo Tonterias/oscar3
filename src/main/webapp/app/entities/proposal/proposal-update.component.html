@@ -1,0 +1,108 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-proposal-heading">Create or edit a Proposal</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!proposal.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="proposal.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_creationDate">Creation Date</label>
+                    <div class="d-flex">
+                        <input id="field_creationDate" type="datetime-local" class="form-control" name="creationDate" [(ngModel)]="creationDate"
+                        required/>
+                    </div>
+                    <div [hidden]="!(editForm.controls.creationDate?.dirty && editForm.controls.creationDate?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.creationDate?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.creationDate?.errors?.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_releaseDate">Release Date</label>
+                    <div class="d-flex">
+                        <input id="field_releaseDate" type="datetime-local" class="form-control" name="releaseDate" [(ngModel)]="releaseDate"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_functionality">Functionality</label>
+                    <input type="text" class="form-control" name="functionality" id="field_functionality"
+                        [(ngModel)]="proposal.functionality" required minlength="2" maxlength="100"/>
+                    <div [hidden]="!(editForm.controls.functionality?.dirty && editForm.controls.functionality?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.functionality?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.functionality?.errors?.minlength">
+                        This field is required to be at least 2 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.functionality?.errors?.maxlength">
+                        This field cannot be longer than 100 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_proposalType">Proposal Type</label>
+                    <select class="form-control" name="proposalType" [(ngModel)]="proposal.proposalType" id="field_proposalType"  required>
+                        <option value="UNDER_STUDY">UNDER_STUDY</option>
+                        <option value="APPROVED">APPROVED</option>
+                        <option value="DEVELOPMENT">DEVELOPMENT</option>
+                        <option value="PRODUCTION">PRODUCTION</option>
+                    </select>
+                    <div [hidden]="!(editForm.controls.proposalType?.dirty && editForm.controls.proposalType?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.proposalType?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" [(ngModel)]="proposal.user"  required>
+                        <option *ngIf="!editForm.value.user" [ngValue]="null" selected></option>
+                        <option [ngValue]="userOption.id === proposal.user?.id ? proposal.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.user?.dirty && editForm.controls.user?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.user?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_post">Post</label>
+                    <select class="form-control" id="field_post" name="post" [(ngModel)]="proposal.post"  required>
+                        <option *ngIf="!editForm.value.post" [ngValue]="null" selected></option>
+                        <option [ngValue]="postOption.id === proposal.post?.id ? proposal.post : postOption" *ngFor="let postOption of posts; trackBy: trackPostById">{{postOption.id}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.post?.dirty && editForm.controls.post?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.post?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

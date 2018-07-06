@@ -1,0 +1,41 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="vote">
+            <h2><span>Vote</span> {{vote.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Creation Date</span></dt>
+                <dd>
+                    <span>{{vote.creationDate}}</span>
+                </dd>
+                <dt><span>Number Of Points</span></dt>
+                <dd>
+                    <span>{{vote.numberOfPoints}}</span>
+                </dd>
+                <dt><span>User</span></dt>
+                <dd>
+                    {{vote.user?.id}}
+                </dd>
+                <dt><span>Proposal</span></dt>
+                <dd>
+                    <div *ngIf="vote.proposal">
+                        <a [routerLink]="['/proposal', vote.proposal?.id, 'view']">{{vote.proposal?.functionality}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/vote', vote.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

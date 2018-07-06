@@ -38,6 +38,20 @@ public class CacheConfiguration {
             cm.createCache(com.oscar3.web.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(com.oscar3.web.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(com.oscar3.web.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            cm.createCache(com.oscar3.web.domain.Profile.class.getName(), jcacheConfiguration);
+            cm.createCache(com.oscar3.web.domain.Post.class.getName(), jcacheConfiguration);
+            cm.createCache(com.oscar3.web.domain.Post.class.getName() + ".comments", jcacheConfiguration);
+            cm.createCache(com.oscar3.web.domain.Post.class.getName() + ".tags", jcacheConfiguration);
+            cm.createCache(com.oscar3.web.domain.Post.class.getName() + ".topics", jcacheConfiguration);
+            cm.createCache(com.oscar3.web.domain.Comment.class.getName(), jcacheConfiguration);
+            cm.createCache(com.oscar3.web.domain.Message.class.getName(), jcacheConfiguration);
+            cm.createCache(com.oscar3.web.domain.Proposal.class.getName(), jcacheConfiguration);
+            cm.createCache(com.oscar3.web.domain.Proposal.class.getName() + ".votes", jcacheConfiguration);
+            cm.createCache(com.oscar3.web.domain.Vote.class.getName(), jcacheConfiguration);
+            cm.createCache(com.oscar3.web.domain.Topic.class.getName(), jcacheConfiguration);
+            cm.createCache(com.oscar3.web.domain.Topic.class.getName() + ".posts", jcacheConfiguration);
+            cm.createCache(com.oscar3.web.domain.Tag.class.getName(), jcacheConfiguration);
+            cm.createCache(com.oscar3.web.domain.Tag.class.getName() + ".posts", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }
